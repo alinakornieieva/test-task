@@ -10,8 +10,12 @@ const slice = createSlice({
     name: 'requests',
     initialState,
     reducers: {
+        deleteItem: (state, action) => {
+            state.items = state.items.filter((item) => item.id !== action.payload)
+        }
     }
 })
 
-const { reducer } = slice
+const { reducer, actions } = slice
 export default reducer
+export const { deleteItem } = actions
