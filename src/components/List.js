@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
-import { deleteItem } from "../../redux/slice"
+import { deleteItem } from "../redux/slice"
 
 export const List = () => {
     const { items } = useSelector((state) => state.requests)
@@ -15,7 +15,7 @@ export const List = () => {
     }
     return <Container className="my-5">
         <Row>
-            {items.map((item) => <Col className="mb-3" lg={3} md={6} sm={12} key={item.id}>
+            {items.map((item) => <Col className="mb-3" lg={4} md={6} sm={12} key={item.id}>
                 <Card>
                     <Card.Body>
                         <Card.Title>{item.cityFrom} - {item.cityTo}</Card.Title>
@@ -23,7 +23,7 @@ export const List = () => {
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>Request: {item.request}</ListGroup.Item>
                         <ListGroup.Item>Type: {item.type}</ListGroup.Item>
-                        <ListGroup.Item>Date: {item.date}</ListGroup.Item>
+                        {item.date && <ListGroup.Item> Date: {item.date}</ListGroup.Item>}
                         {item.description && <ListGroup.Item>Description: {item.description}</ListGroup.Item>}
                     </ListGroup>
                     <Card.Body>
