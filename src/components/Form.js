@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItem, changeType } from '../redux/slice'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -14,9 +14,14 @@ export const RequestForm = () => {
     const navigate = useNavigate()
     const { type: URLType } = useParams()
     const { type } = useSelector((state) => state.requests)
-    if (type !== URLType) {
-        dispatch(changeType(URLType))
-    }
+    useEffect(() => {
+        if (URLType !== 'delivery' && URLType !== 'order') {
+            navigate('/create')
+        }
+        if (type !== URLType) {
+            dispatch(changeType(URLType))
+        }
+    }, [])
     const [cityFrom, setCityFrom] = useState('')
     const [cityTo, setCityTo] = useState('')
     const [date, setDate] = useState('')
