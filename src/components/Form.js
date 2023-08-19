@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem } from '../redux/slice'
-import { useNavigate } from 'react-router-dom'
+import { addItem, changeType } from '../redux/slice'
+import { useNavigate, useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
@@ -10,9 +10,13 @@ import Row from 'react-bootstrap/Row'
 
 
 export const RequestForm = () => {
-    const { type } = useSelector((state) => state.requests)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const { type: URLType } = useParams()
+    const { type } = useSelector((state) => state.requests)
+    if (type !== URLType) {
+        dispatch(changeType(URLType))
+    }
     const [cityFrom, setCityFrom] = useState('')
     const [cityTo, setCityTo] = useState('')
     const [date, setDate] = useState('')
