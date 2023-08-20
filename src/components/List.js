@@ -18,13 +18,17 @@ export const List = () => {
             if (currentSorting === 'Last created') {
                 return [...items].reverse()
             } else if (currentSorting === 'Closest sending') {
-                return [...items].sort((a, b) => {
-                    return Math.abs(Date.now() - new Date(a.date)) - Math.abs(Date.now() - new Date(b.date));
+                const withoutDateItems = [...items].filter((item) => !item.date)
+                const withDateItems = [...items].filter((item) => item.date).sort((a, b) => {
+                    return Math.abs(Date.now() - new Date(a.date)) - Math.abs(Date.now() - new Date(b.date))
                 })
+                return [...withDateItems, ...withoutDateItems]
             } else if (currentSorting === 'Further sending') {
-                return [...items].sort((a, b) => {
-                    return Math.abs(Date.now() - new Date(b.date)) - Math.abs(Date.now() - new Date(a.date));
+                const withoutDateItems = [...items].filter((item) => !item.date)
+                const withDateItems = [...items].filter((item) => item.date).sort((a, b) => {
+                    return Math.abs(Date.now() - new Date(b.date)) - Math.abs(Date.now() - new Date(a.date))
                 })
+                return [...withDateItems, ...withoutDateItems]
             }
         }
     )
