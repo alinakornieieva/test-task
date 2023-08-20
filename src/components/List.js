@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
-import { deleteItem } from "../redux/slice"
+import { deleteItem, toggleModal } from "../redux/slice"
 import { Sorting } from "./Sorting"
 import { createSelector } from "@reduxjs/toolkit"
 
@@ -50,12 +50,12 @@ export const List = () => {
                     </Card.Body>
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>Request: {request}</ListGroup.Item>
-                        <ListGroup.Item>Type: {type}</ListGroup.Item>
+                        {type && <ListGroup.Item>Type: {type}</ListGroup.Item>}
                         {date && <ListGroup.Item> Date: {convert(date)}</ListGroup.Item>}
                         {description && <ListGroup.Item>Description: {description}</ListGroup.Item>}
                     </ListGroup>
                     <Card.Body>
-                        <Button variant="primary me-2">Edit</Button>
+                        <Button onClick={() => dispatch(toggleModal(id))} variant="primary me-2">Edit</Button>
                         <Button onClick={() => dispatch(deleteItem(id))} variant="danger">Delete</Button>
                     </Card.Body>
                 </Card>

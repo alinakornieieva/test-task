@@ -32,7 +32,7 @@ export const RequestForm = () => {
         const form = event.currentTarget
         event.preventDefault()
         if (form.checkValidity() === true) {
-            dispatch(addItem({ id: Date.now(), request: type, cityFrom, cityTo, date, description, type: typeOfParcel }))
+            dispatch(addItem({ id: Date.now(), request: type, cityFrom, cityTo, date, description, type: type === 'delivery' ? null : typeOfParcel }))
             navigate('/requests')
         }
         setValidated(true)
