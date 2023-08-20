@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     type: null,
+    currentSorting: 'Last created',
     items: [
-        { id: 1, request: 'order', cityFrom: 'Warsaw', cityTo: 'Berlin', type: 'clothes', date: '28/08/2023', description: '' },
+        { id: 1, request: 'order', cityFrom: 'Warsaw', cityTo: 'Berlin', type: 'clothes', date: '2023-09-26', description: '' },
     ]
 }
 
@@ -19,10 +20,13 @@ const slice = createSlice({
         },
         changeType: (state, action) => {
             state.type = action.payload
+        },
+        changeSorting: (state, action) => {
+            state.currentSorting = action.payload
         }
     }
 })
 
 const { reducer, actions } = slice
 export default reducer
-export const { deleteItem, addItem, changeType } = actions
+export const { deleteItem, addItem, changeType, changeSorting } = actions
