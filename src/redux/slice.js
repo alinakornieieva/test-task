@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     type: null,
     currentSorting: 'Last created',
-    items: [
-        { id: 1, request: 'order', cityFrom: 'Warsaw', cityTo: 'Berlin', type: 'clothes', date: '2023-09-26', description: '' },
-    ],
+    items: JSON.parse(localStorage.getItem('requests')) || [],
     modal: null
+}
+
+const changeLocalStorage = (data) => {
+    localStorage.setItem('requests', JSON.stringify(data))
 }
 
 const slice = createSlice({
@@ -15,16 +17,18 @@ const slice = createSlice({
     reducers: {
         deleteItem: (state, action) => {
             state.items = state.items.filter((item) => item.id !== action.payload)
+            changeLocalStorage(state.items)
         },
         addItem: (state, action) => {
             state.items.push(action.payload)
-            console.log(action.payload)
+            changeLocalStorage(state.items)
         },
         editItem: (state, action) => {
             const index = state.items.findIndex((item) => {
                 if (item.id === action.payload.id) return true
             })
             state.items[index] = { ...action.payload }
+            changeLocalStorage(state.items)
         },
         changeType: (state, action) => {
             state.type = action.payload
